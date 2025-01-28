@@ -1,65 +1,53 @@
-//O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
-//O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
 const listaNomes = [];
 
-function Limpar() {
-    // Obtém o elemento input pelo ID
-    const input = document.getElementById('amigo');
-    // Define um novo valor no input
-    input.value = ''
+function limparInput() {
+    // Limpa o campo de input
+    document.getElementById('amigo').value = '';
 }
 
-function limparLista(){
-        // Obtém a <ul> pelo ID
-        const ul = document.getElementById('listaAmigos');
-        // Remove todos os <li> ao definir o innerHTML como vazio
-        ul.innerHTML = '';
+function limparLista() {
+    // Limpa a lista de amigos exibida
+    document.getElementById('listaAmigos').innerHTML = '';
 }
 
-function limparResultado(){
-     const exibirGanhador = document.getElementById('resultado');
-     exibirGanhador.textContent = '';
+function limparResultado() {
+    // Limpa o campo de resultado do sorteio
+    document.getElementById('resultado').textContent = '';
 }
 
-function listaDeAmigosAdicionados(nome){
-    // Obtém o Ul pelo ID
+function adicionarAmigoNaLista(nome) {
+    // Cria e adiciona um item à lista de amigos exibida
     const ul = document.getElementById('listaAmigos');
-    // Cria um elemento
     const li = document.createElement('li');
-    //Adiciona o conteudo no elemento Li
     li.textContent = nome;
-    // Adiciona o elemento li como filha de ul
     ul.appendChild(li);
 }
 
-function adicionarAmigo(){
-    //Limpar nome do Sorteado
-    if(document.getElementById('resultado') != ''){
-        limparResultado()
-    }
-    //Condição para adicionar um novo amigo a lista
-    if(document.getElementById('amigo').value != ''){
-        // Pega o valor do input pelo ID
-        const nome = document.getElementById('amigo').value;
-        // Adiciona o nome a um Array
-        listaNomes.push(nome);
-        //Adiciona o amigo na lista para vizualização 
-        listaDeAmigosAdicionados(nome);    
-        // Limpar o nome no Input
-        Limpar();
-    } else{
-        //Exibe um alert de campo vazio
+function adicionarAmigo() {
+    const nomeInput = document.getElementById('amigo').value.trim();
+
+    if (nomeInput === '') {
         alert('Nome do amigo não pode ser vazio!');
+        return;
     }
+
+    listaNomes.push(nomeInput);
+    adicionarAmigoNaLista(nomeInput);
+    limparInput();
+    limparResultado();
 }
 
-function sortearAmigo(){
-     // Gera um índice aleatório dentro do tamanho do array
-     const sortearAmigo = parseInt(Math.random() * listaNomes.length );
-     // Obtém o nome sorteado
-     const sorteado = listaNomes[sortearAmigo];
-     // Exibe o resultado
-     const exibirGanhador = document.getElementById('resultado');
-     exibirGanhador.textContent = `O sorteado é: ${sorteado}`;
-     limparLista();
+function sortearAmigo() {
+    if (listaNomes.length === 0) {
+        alert('Nenhum amigo foi adicionado ainda!');
+        return;
+    }
+
+    // Gera um índice aleatório e sorteia o nome
+    const indexAleatorio = Math.floor(Math.random() * listaNomes.length);
+    const sorteado = listaNomes[indexAleatorio];
+
+    // Exibe o resultado do sorteio
+    document.getElementById('resultado').textContent = `O sorteado é: ${sorteado}`;
+    limparLista();
 }
