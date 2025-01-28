@@ -43,11 +43,25 @@ function sortearAmigo() {
         return;
     }
 
-    // Gera um índice aleatório e sorteia o nome
     const indexAleatorio = Math.floor(Math.random() * listaNomes.length);
     const sorteado = listaNomes[indexAleatorio];
 
-    // Exibe o resultado do sorteio
     document.getElementById('resultado').textContent = `O sorteado é: ${sorteado}`;
     limparLista();
+    // Muda o texto do botão para "Reiniciar"
+    const botaoSortear = document.getElementById('botaoSortear');
+    botaoSortear.textContent = 'Reiniciar';
+    // Adiciona a funcionalidade de reiniciar
+    botaoSortear.setAttribute('onclick', 'reiniciar()');
+}
+
+function reiniciar() {
+    // Limpa a lista e o resultado
+    listaNomes.length = 0;  // Limpa o array de nomes
+    limparLista();
+    limparResultado();
+    // Restaura o nome original do botão e sua ação
+    const botaoSortear = document.getElementById('botaoSortear');
+    botaoSortear.textContent = 'Sortear Amigo';
+    botaoSortear.setAttribute('onclick', 'sortearAmigo()');
 }
