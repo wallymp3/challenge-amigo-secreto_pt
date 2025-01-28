@@ -65,3 +65,5 @@ function reiniciar() {
     botaoSortear.textContent = 'Sortear Amigo';
     botaoSortear.setAttribute('onclick', 'sortearAmigo()');
 }
+
+//tentando
